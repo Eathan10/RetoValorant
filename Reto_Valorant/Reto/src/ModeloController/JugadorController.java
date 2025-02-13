@@ -2,6 +2,7 @@ package ModeloController;
 
 import Modelo.Equipo;
 import Modelo.Jugador;
+import Modelo.Rol;
 import ModeloDAO.EquipoDAO;
 import ModeloDAO.JugadorDAO;
 import Nacionalidades.Country;
@@ -26,7 +27,7 @@ public class JugadorController {
     private static EquipoDAO equipoDAO;
     ArrayList<Equipo> equipos;
     private static final int SUELDO = 1184;
-
+    private static RolController rolController;
     public JugadorController() {
     }
 
@@ -39,7 +40,19 @@ public class JugadorController {
             j.setApellido(this.validarNomApeNik("Apellido", "Ingresa el apellido del jugador.", "^[A-ZÁÉÍÓÚÑÄËÏÖÜ][a-záéíóúñäëïöü\\s]*$"));
             j.setNacionalidad(this.validarNacionalidad());
             j.setFechaNacimiento(this.validarFechaNacimiento());
-            //j.setRol(RolController.validarRol());
+
+            ArrayList<Rol> roles = rolController.conseguirRoles();
+            String seleccionRol = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Selecciona una opción:",
+                    "Lista Desplegable",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    opcionesRol,
+                    opcionesRol[0]);
+
+            j.setRol(seleccionRol);
+
             j.setNickname(this.validarNomApeNik("Nickname", "Ingresa el nickname del jugador.", "\\S{3,16}"));
             j.setSueldo(this.validarSueldo());
             j.setEquipo(this.validarEquipos());
@@ -51,6 +64,7 @@ public class JugadorController {
     }
 
     private void declararVariables() {
+        //rolController = new RolControlles();
         equipoDAO = new EquipoDAO();
         jugadorDAO = new JugadorDAO();
         equipos = equipoDAO.obtenerTodosLosEquipos();
