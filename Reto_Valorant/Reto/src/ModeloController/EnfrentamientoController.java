@@ -124,4 +124,16 @@ public class EnfrentamientoController {
         int eq1 = rand.nextInt(equipos.size());
         return equipos.get(eq1);
     }
+
+    public void verEnfrentamientosJornada() {
+    }
+
+    public void verEnfrentamientosEquipo() {
+    }
+
+    public void anadirResultado() {
+    }
+
+    public void verPuntuacionEquipo() {
+    }
 }

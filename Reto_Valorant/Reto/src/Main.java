@@ -1,9 +1,9 @@
 import Modelo.Juego;
 import ModeloController.*;
-import ModeloDAO.CompeticionDAO;
 import ModeloDAO.JuegoDAO;
 
-import java.util.InputMismatchException;
+import javax.swing.*;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Main {
@@ -13,9 +13,9 @@ public class Main {
     public static JornadaController jornadaController;
     public static CompeticionController competicionController;
     public static EnfrentamientoController enfrentamientoController;
-    public static String opcionesSinJuego;
-    public static String opcionesSinJornadas;
-    public static String opcionesConJornadas;
+    public static String[] opcionesSinJuego;
+    public static String[] opcionesSinJornadas;
+    public static String[] opcionesConJornadas;
 
     public static void main(String[] args) {
         declararVariables();
@@ -31,49 +31,61 @@ public class Main {
         jornadaController = new JornadaController();
         competicionController = new CompeticionController();
         enfrentamientoController = new EnfrentamientoController();
-        opcionesSinJuego = """
-                            1. Añadir un juego nuevo.
-                            2. Eliminar un juego.
-                            3. Modificar un juego.
-                            4. Ver los juegos que hay.
-                            5. Continuar a la competicion.
-                            """;
-        opcionesSinJornadas = """
-                                1. Crear un Jugador.
-                                2. Crear un Equipo.
-                                3. Modificar un Jugador.
-                                4. Modificar un Equipo.
-                                5. Eliminar un Jugador.
-                                6. Eliminar un Equipo.
-                                7. Ver todos los jugadores.
-                                8. Ver todos los equipos.
-                                9. Ver informacion de un jugador en concreto.
-                                10. Ver informacion de un equipo en concreto.
-                                11. Ver los jugadores de un equipo.
-                                12. Crear las jornadas.
-                                """;
-        opcionesConJornadas = """
-                                1. Modificar un Jugador.
-                                2. Modificar un Equipo.
-                                3. Ver todos los jugadores.
-                                4. Ver todos los equipos.
-                                5. Ver informacion de un jugador en concreto.
-                                6. Ver informacion de un equipo en concreto.
-                                7. Ver los jugadores de un equipo.
-                                8. Ver los enfrentamientos de una jornada.
-                                9. Ver los enfrentamientos de un equipo.
-                                10. Añadir un resultado a un enfrentamiento.
-                                11. Ver la puntuacion de un equipo.
-                                """;
+
+        opcionesSinJuego = new String[]{
+                "1.Añadir un juego nuevo",
+                "2.Eliminar un juego",
+                "3.Modificar un juego",
+                "4.Ver los juegos que hay",
+                "5.Continuar a la competicion"
+        };
+
+        opcionesSinJornadas = new String[]{
+                "1. Crear un Jugador",
+                "2. Crear un Equipo",
+                "3. Modificar un Jugador",
+                "4. Modificar un Equipo",
+                "5. Eliminar un Jugador",
+                "6. Eliminar un Equipo",
+                "7. Ver todos los jugadores",
+                "8. Ver todos los equipos",
+                "9. Ver informacion de un jugador en concreto",
+                "10. Ver informacion de un equipo en concreto",
+                "11. Ver los jugadores de un equipo",
+                "12. Crear las jornadas"
+        };
+
+        opcionesConJornadas = new String[]{
+                "1. Modificar un Jugador",
+                "2. Modificar un Equipo",
+                "3. Ver todos los jugadores",
+                "4. Ver todos los equipos",
+                "5. Ver informacion de un jugador en concreto",
+                "6. Ver informacion de un equipo en concreto",
+                "7. Ver los jugadores de un equipo",
+                "8. Ver los enfrentamientos de una jornada",
+                "9. Ver los enfrentamientos de un equipo",
+                "10. Añadir un resultado a un enfrentamiento",
+                "11. Ver la puntuacion de un equipo"
+        };
+
     }
 
     public static void opcionesSinJuego() {
-        Scanner sc = new Scanner(System.in);
         boolean yes = true;
         do {
             try {
-                System.out.println(opcionesSinJuego);
-                int opcion = sc.nextInt();
+                String o = (String) JOptionPane.showInputDialog(
+                        null,
+                        "Elige las opciones",
+                        "",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        opcionesSinJuego,
+                        opcionesSinJuego[0]
+                );
+                int opcion = Integer.parseInt(o.substring(0, 1));
+
                 switch (opcion) {
                     case 1 -> juegoController.anadirJuego();
                     case 2 -> juegoController.eliminarJuego();
@@ -81,9 +93,9 @@ public class Main {
                     case 4 -> juegoController.verTodosJuegos();
                     default -> yes = validarCrearCompeticion(); //Cuando tengamos competicion pasarlo ahi
                 }
-            }catch (InputMismatchException e){
-                sc.nextLine();
-                System.out.println("Vuelve a teclear la opcion por favor " + e.getMessage()+"\n");
+
+            }catch (NoSuchElementException e){
+                System.out.println("Teclee una opcion valida por favor su opcion es: " + e.getMessage()+"\n");
                 // para notificar que ha pasado, ocurre cuando se 'lia' el Scanner
             }catch (NullPointerException e){
                 System.out.println("La opcion es nula, aconsejamos crear antes para despues modificar\n");
@@ -110,12 +122,22 @@ public class Main {
     }
 
     public static void opcionesSinJornadas() {
-        Scanner sc = new Scanner(System.in);
         boolean yes=true;
         do {
             try {
-                System.out.println(opcionesSinJornadas);
-                int opcion = sc.nextInt();
+
+                String o = (String) JOptionPane.showInputDialog(
+                        null,
+                        "Elige las opciones",
+                        "",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        opcionesSinJornadas,
+                        opcionesSinJornadas[0]
+                );
+
+                int opcion = Integer.parseInt(o.substring(0, 1));
+
                 switch (opcion) {
                     case 1 -> jugadorController.dataValidation();
                     case 2 -> equipoController.validarDatosEquipo();
@@ -134,11 +156,10 @@ public class Main {
                             enfrentamientoController.crearEnfrentamientos();
                     }
                 }
-            }catch (InputMismatchException e){
-                sc.nextLine();
-                System.out.println("Vuelve a teclear la opcion por favor " + e.getMessage()+"\n");
-                // para notificar que ha pasado, ocurre cuando se 'lia' el Scanner
-            }catch (NullPointerException e){
+            }catch (NoSuchElementException e){
+                System.out.println("Teclee una opcion valida por favor su opcion es: " + e.getMessage()+"\n");
+                //Es porque el IDE no conoce al objeto y no sabe darle excepcion
+            } catch (NullPointerException e){
                 System.out.println("La opcion es nula, aconsejamos crear antes para despues modificar\n");
                 yes = true;
             }catch (NumberFormatException e){
@@ -148,13 +169,34 @@ public class Main {
     }
 
     public static void opcionesConJornadas() {
-        Scanner sc = new Scanner(System.in);
         boolean yes = true;
         do {
-            System.out.println(opcionesConJornadas);
-            int opcion = sc.nextInt();
+            String o = (String) JOptionPane.showInputDialog(
+                    null,
+                    "Elige las opciones",
+                    "",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    opcionesConJornadas,
+                    opcionesConJornadas[0]
+            );
+
+            int opcion = Integer.parseInt(o.substring(0, 1));
+
             switch (opcion) {
                 case 1 -> jornadaController.validarCreacionJornada();
+                case 2 -> equipoController.modificarEquipo();
+                case 3 -> jugadorController.verTodosJugadores();
+                case 4 -> equipoController.verTodosEquipos();
+                case 5 -> jugadorController.verPorNombre();
+                case 6 -> equipoController.verPorNombre();
+                case 7 -> equipoController.verJugadores();
+
+                //a partir de aui hay que crear estas funciones, existe nada mas el nombre pero estan vacias
+                case 8 -> enfrentamientoController.verEnfrentamientosJornada();
+                case 9 -> enfrentamientoController.verEnfrentamientosEquipo();
+                case 10 -> enfrentamientoController.anadirResultado();
+                case 11 -> enfrentamientoController.verPuntuacionEquipo();
                 default -> yes = false;
             }
         }while(yes);
