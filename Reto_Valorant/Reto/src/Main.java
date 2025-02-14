@@ -4,7 +4,6 @@ import ModeloDAO.JuegoDAO;
 
 import javax.swing.*;
 import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 public class Main {
     public static JuegoController juegoController;
@@ -150,11 +149,12 @@ public class Main {
                     case 9 -> jugadorController.verPorNombre();
                     case 10 -> equipoController.verPorNombre();
                     case 11 -> equipoController.verJugadores();
-                    default -> {
+                    case 12 -> {
                         yes = jornadaController.validarCreacionJornada();
                         if (!yes)
                             enfrentamientoController.crearEnfrentamientos();
                     }
+                    default -> JOptionPane.showMessageDialog(null,"Opcion no permitida");
                 }
             }catch (NoSuchElementException e){
                 System.out.println("Teclee una opcion valida por favor su opcion es: " + e.getMessage()+"\n");
@@ -192,11 +192,10 @@ public class Main {
                 case 6 -> equipoController.verPorNombre();
                 case 7 -> equipoController.verJugadores();
 
-                //a partir de aui hay que crear estas funciones, existe nada mas el nombre pero estan vacias
-                case 8 -> enfrentamientoController.verEnfrentamientosJornada();
-                case 9 -> enfrentamientoController.verEnfrentamientosEquipo();
-                case 10 -> enfrentamientoController.anadirResultado();
-                case 11 -> enfrentamientoController.verPuntuacionEquipo();
+                case 8 -> enfrentamientoController.verEnfrentamientosJornada(); //no esta hecho
+                case 9 -> enfrentamientoController.verEnfrentamientosEquipo(); //no esta hecho
+                case 10 -> enfrentamientoController.anadirResultado(); //ya existe
+                case 11 -> enfrentamientoController.verPuntuacionEquipo(); //en proceso
                 default -> yes = false;
             }
         }while(yes);

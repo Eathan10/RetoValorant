@@ -1,6 +1,5 @@
 package ModeloController;
 
-import Modelo.Competicion;
 import Modelo.Equipo;
 import Modelo.Jornada;
 import ModeloDAO.CompeticionDAO;
@@ -18,10 +17,7 @@ public class JornadaController {
     private static JornadaDAO jornadaDAO;
     private static CompeticionDAO competicionDAO;
     private static CompeticionController competicionController;
-    private static EquipoDAO equipoDAO;
     private static ArrayList<Jornada> jornadas;
-    private static ArrayList<Competicion> competiciones;
-    private static EnfrentamientoController enfrentamientoController;
     private static ArrayList<Equipo> equipos;
 
     private static final int[] meses31 = {1,3,5,7,8,10,12};
@@ -30,9 +26,8 @@ public class JornadaController {
         jornadaDAO = new JornadaDAO();
         competicionDAO = new CompeticionDAO();
         competicionController = new CompeticionController();
-        equipoDAO = new EquipoDAO();
-        enfrentamientoController = new EnfrentamientoController();
-        competiciones = competicionDAO.obtenerTodasCompeticiones();
+        EquipoDAO equipoDAO = new EquipoDAO();
+        competicionDAO.obtenerTodasCompeticiones();
         jornadas = jornadaDAO.getJornadas(); // Asegúrate de inicializar aquí
         equipos = equipoDAO.obtenerTodosLosEquipos();
     }
@@ -45,7 +40,7 @@ public class JornadaController {
                 competicionController.actualizarCompeticion(jornadas.getLast().getCompeticion());
                 resultado = false;
             } else {
-                System.out.println("La cantidad de equipos no es par");
+                JOptionPane.showMessageDialog(null,"La cantidad de equipos no es par");
             }
         }catch (NullPointerException e){
             System.out.println("No existe ningun equipo.");

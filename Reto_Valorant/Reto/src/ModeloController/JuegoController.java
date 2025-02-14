@@ -1,6 +1,5 @@
 package ModeloController;
 
-import Modelo.Equipo;
 import Modelo.Juego;
 import ModeloDAO.JuegoDAO;
 
@@ -61,7 +60,7 @@ public class JuegoController {
             } catch (NumberFormatException e) {
                 System.out.println("El nombre del juego NO debe ser menor que 3 o mayor que 15");
             } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(null, "No se admite valor nulo");
+                System.out.println("No se admite valor nulo");
             }
         } while(!isFinished);
 
@@ -87,7 +86,7 @@ public class JuegoController {
             } catch (NumberFormatException | DateTimeParseException e) {
                 System.out.println(fechaNOpars + " error al parsear la fecha : " +e.getMessage());
             } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(null, fechaNOpars + " no puede ser nulo");
+                System.out.println(fechaNOpars + " no puede ser nulo");
             }
         } while(!validFecha);
         return fechaPars;
@@ -95,7 +94,7 @@ public class JuegoController {
     public void modificarJuego(){
         Juego j = new Juego();
         ArrayList<Juego> juegos = juegoDAO.obtenerTodosJuegos();
-        boolean continuar = false;
+        boolean continuar;
         do {
             try {
                 String opc= (String) JOptionPane.showInputDialog(null,
@@ -161,16 +160,18 @@ public class JuegoController {
                 );
                 if (opc==null || opc.isEmpty()) {
                     continuar = false;
+                }else if (juegoDAO.obtenerTodosJuegos().isEmpty()){
+                        JOptionPane.showMessageDialog(null,"No hay juegos para eliminar");
                 }else {
                     j = juegoDAO.obtenerTodosJuegos().stream().filter(juego -> juego.getNombre().equals(opc)).findFirst().orElse(null);
-                    //con solo el nombre obtiene todos los datos de Equipo eq
                     continuar = true;
+                    //con solo el nombre obtiene todos los datos de Equipo eq
                 }
             }catch (NullPointerException e){
                 continuar = false;
             }
-        }while (JOptionPane.showConfirmDialog(null,"Quiere continuar eliminando juegos?") == 0);
-        //sale de repetitiva
+        }while (JOptionPane.showConfirmDialog(null,"Quiere continuar eliminando juegos?") == 0 && juegoDAO.obtenerTodosJuegos().isEmpty());
+        //sale de repetitiva con respuesta de usuario o si no hay mas juegos para eliminar
         if (continuar)
             juegoDAO.eliminarJuego(Objects.requireNonNull(j).getCodjuego());
     }

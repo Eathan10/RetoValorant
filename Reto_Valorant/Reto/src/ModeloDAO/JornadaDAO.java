@@ -14,6 +14,7 @@ public class JornadaDAO {
     public void anadirJornada(Jornada j) {
         listaJornada.add(j);
     }
+
     public ArrayList<Jornada> getJornadas() {
         return listaJornada;
     }

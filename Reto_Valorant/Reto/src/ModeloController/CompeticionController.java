@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CompeticionController {
-    private Competicion competicion;
     private static CompeticionDAO competicionDAO;
     private static JornadaDAO jornadaDAO;
 
@@ -21,7 +20,7 @@ public class CompeticionController {
     }
 
     public void crearCompeticion(Juego juego) {
-        competicion = new Competicion();
+        Competicion competicion = new Competicion();
             competicion.setCodCompeticion(generarCodCompeticion());
             competicion.setEstado(descubrirEstado());
             competicion.setJuego(juego);
@@ -42,6 +41,7 @@ public class CompeticionController {
         char estado;
         try {
             ArrayList<Jornada> jornadas = jornadaDAO.getJornadas();
+            //que se quiere hacer con jornadas?
             estado = 'A';
         }catch (NullPointerException e){
             estado = 'C';

@@ -1,8 +1,10 @@
 package ModeloDAO;
 
 import Modelo.Enfrentamiento;
+import Modelo.Equipo;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class EnfrentamientoDAO {
     private static ArrayList<Enfrentamiento> enfrentamientos;
@@ -26,6 +28,9 @@ public class EnfrentamientoDAO {
     public Enfrentamiento getEnfrentamientoPorId(int id) {
              return enfrentamientos.stream().filter(e -> e.getIdEnfrentamiento() == id).findFirst().orElse(null);
              //el enrentamiento tiene que tener un ID para saber a cual referirse, no puede ser x fecha u hora
+    }
+    public Enfrentamiento getEnfrentamientoPorEquipos(Equipo eq1,Equipo eq2){
+        return enfrentamientos.stream().filter(e -> e.getEquipo1().equals(eq1) && e.getEquipo2().equals(eq2)).findFirst().orElse(null);
     }
 
     /*

@@ -6,9 +6,7 @@ import Modelo.Equipo;
 import Modelo.Juego;
 import Modelo.Jugador;
 import ModeloDAO.EquipoDAO;
-import ModeloDAO.JuegoDAO;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -23,13 +21,11 @@ import javax.swing.JOptionPane;
 public class EquipoController{
 
     private static EquipoDAO eDAO;
-    private static JuegoDAO jDAO;
     private static LocalDate FECHAFUNDACION;
     //fecha fundacion hay que meterla en Juego
 
     public EquipoController() {
         eDAO = new EquipoDAO();
-        jDAO = new JuegoDAO();
     }
 
     public void definirFechaFundacion(Juego j) {
@@ -60,9 +56,9 @@ public class EquipoController{
                     JOptionPane.showMessageDialog(null, var + " tiene un patron inválido");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("El nombre del equipo NO debe ser menor que 3 o mayor que 15");
+                System.out.println("El nombre del equipo NO debe ser menor que 3 o mayor que 15: " +e.getMessage());
             } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(null, "No se admite valor nulo");
+                System.out.println("No se admite valor nulo");
             }
         } while(!isFinished);
 
@@ -99,7 +95,7 @@ public class EquipoController{
             } catch (NumberFormatException | DateTimeParseException e) {
                 System.out.println(fechaNOpars + " error al parsear la fecha : " +e.getMessage());
             } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(null, fechaNOpars + " no puede ser nulo");
+                System.out.println(fechaNOpars + " no puede ser nulo");
             }
         } while(!validFecha);
 
@@ -108,7 +104,7 @@ public class EquipoController{
     public void modificarEquipo(){
         Equipo eq = new Equipo();
         ArrayList<Equipo> equipos = eDAO.obtenerTodosLosEquipos();
-        boolean continuar = false;
+        boolean continuar ;
         do {
             try {
                 String opc= (String) JOptionPane.showInputDialog(null,
@@ -163,7 +159,7 @@ public class EquipoController{
     public void eliminarEquipo(){
         Equipo eq = new Equipo();
         ArrayList<Equipo> equipos = eDAO.obtenerTodosLosEquipos();
-        boolean continuar = false;
+        boolean continuar ;
         do {
             try {
                 String opc= (String) JOptionPane.showInputDialog(null,
