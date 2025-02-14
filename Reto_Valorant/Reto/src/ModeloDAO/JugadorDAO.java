@@ -4,17 +4,13 @@ import Modelo.Jugador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class JugadorDAO {
 
-        private List<Jugador> jugadores;
+        private static ArrayList<Jugador> jugadores = new ArrayList<>();
 
 
-        public JugadorDAO() {
-            this.jugadores = new ArrayList<>();
-        }
+        public JugadorDAO() {}
 
 
         public void agregar(Jugador jugador) {
@@ -22,11 +18,11 @@ public class JugadorDAO {
         }
 
 
-        public List<Jugador> obtenerTodos(){
+        public ArrayList<Jugador> obtenerTodos(){
             return new ArrayList<>(jugadores);
         }
 
-        public void modificar(String codJugador, Jugador nuevoJugador) {
+        public void modificar(int codJugador, Jugador nuevoJugador) {
             jugadores.replaceAll(j -> j.getCodJugador() == nuevoJugador.getCodJugador() ? nuevoJugador : j);
         }
 
@@ -36,13 +32,14 @@ public class JugadorDAO {
         }
 
 
-        public Optional<Jugador> obtenerPorCodigo(int codJugador) {
-            return jugadores.stream().filter(j -> j.getCodJugador() == codJugador).findFirst();
+        public Jugador obtenerPorCodigo(int codJugador) {
+            return jugadores.stream().filter(j -> j.getCodJugador() == codJugador).findFirst().get();
         }
 
 
-        public List<Jugador> obtenerPorEquipo(int codEquipo) {
-            return jugadores.stream().filter(j -> j.getEquipo().get().getCodEquipo() == codEquipo).toList();
+        public ArrayList<Jugador> obtenerPorEquipo(int codEquipo) {
+            List<Jugador> jugadors = jugadores.stream().filter(j -> j.getEquipo().getCodEquipo() == codEquipo).toList();
+            return new ArrayList<>(jugadors);
             //obtiene los jugadores por Equipo con codigo coincidente y los añade a 'jugadores'
 
         }

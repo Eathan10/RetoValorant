@@ -248,9 +248,9 @@ public enum Country {
     ZMB("ZMB", "ZM", "Zambia"),
     ZWE("ZWE", "ZW", "Zimbabue");
 
-    private String name;
-    private String threeDigitsCode;
-    private String twoDigitsCode;
+    private final String name;
+    private final String threeDigitsCode;
+    private final String twoDigitsCode;
 
     Country(String threeDigitsCode, String twoDigitsCode, String name) {
         this.twoDigitsCode = twoDigitsCode;
@@ -270,3 +270,4 @@ public enum Country {
         return twoDigitsCode;
     }
 }
+

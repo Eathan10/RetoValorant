@@ -5,7 +5,7 @@ import Modelo.Enfrentamiento;
 import java.util.ArrayList;
 
 public class EnfrentamientoDAO {
-    private ArrayList<Enfrentamiento> enfrentamientos;
+    private static ArrayList<Enfrentamiento> enfrentamientos;
 
     public void anadirEnfrentamientos(Enfrentamiento en) {
         try {

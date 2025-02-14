@@ -4,20 +4,52 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f44a7a43-f27e-4c5b-acac-97da0bb0afcd" name="Changes" comment="Ya funciona equipos y jugador">
+    <list default="true" id="f44a7a43-f27e-4c5b-acac-97da0bb0afcd" name="Changes" comment="Competicion completo creado &#10;No pude hacer nada mas porque no funciona nada en jornadaController">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Reto/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Reto/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Reto/Modelo/Jornada.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Reto/Modelo/Jornada.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Reto/ModeloController/EnfrentamientoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Reto/ModeloController/EnfrentamientoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Reto/ModeloController/EquipoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Reto/ModeloController/EquipoController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Reto/ModeloController/JornadaController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Reto/ModeloController/JornadaController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Reto/ModeloController/JugadorController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Reto/ModeloController/JugadorController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Reto/ModeloDAO/EnfrentamientoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Reto/ModeloDAO/EnfrentamientoDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Reto/ModeloDAO/EquipoDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Reto/ModeloDAO/EquipoDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Reto/ModeloDAO/JornadaDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Reto/ModeloDAO/JornadaDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModeloController/CompeticionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModeloController/CompeticionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModeloController/EnfrentamientoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModeloController/EnfrentamientoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModeloController/EquipoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModeloController/EquipoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ModeloController/JornadaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModeloController/JornadaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ModeloController/JuegoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ModeloController/JuegoController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AaronJimenez-dev&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AaronJimenez-dev/RetoValorant.git&quot;,
+    &quot;accountId&quot;: &quot;1dda8a5e-26e2-45af-a4a8-cd3e7055fc6b&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -27,27 +59,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Zeldis_Vyer/Desktop/Clase/GS/RetoValorant/reto/Codigo Base Version 1",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "inlay.hints",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Zeldis_Vyer/Escritorio/Reto/RetoValorant/Reto_Valorant/Reto&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Language Defaults&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.18034.62" />
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.18034.62" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
       </set>
     </attachedChunks>
   </component>
@@ -60,23 +96,77 @@
       <option name="presentableId" value="Default" />
       <updated>1739348455313</updated>
       <workItem from="1739348456626" duration="5000" />
+      <workItem from="1739370780055" duration="238000" />
+      <workItem from="1739378017287" duration="5530000" />
+      <workItem from="1739473179400" duration="16000" />
+      <workItem from="1739480791936" duration="8075000" />
+      <workItem from="1739510261120" duration="2827000" />
     </task>
-    <task id="LOCAL-00001" summary="Ya funciona equipos y jugador">
+    <task id="LOCAL-00001" summary="Mejorada la validacion de si se puede crear el jugador, añadido nickname, fechaNac y sueldo.">
       <option name="closed" value="true" />
-      <created>1739448710402</created>
+      <created>1739380527789</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1739448710402</updated>
+      <updated>1739380527789</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Añadida la validacion de maximo 6 jugadores por equipo.">
+      <option name="closed" value="true" />
+      <created>1739382263831</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1739382263831</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Ver todos los equipos y jugadores arreglado, modificar equipos arreglado.&#10;Mejorados los toString() de jugadores y equipos.&#10;Agregado el jugador al equipo una vez creado, siempre y cuando no sea nulo.&#10;Si la fecha de fundacion del equipo era previa a la del juego creaba el equipo con esa fecha, corregido.&#10;Creado todo lo de juego y verificado(¿Como hacemos el resto?)">
+      <option name="closed" value="true" />
+      <created>1739472726448</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1739472726448</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Competicion completo creado &#10;No pude hacer nada mas porque no funciona nada en jornadaController">
+      <option name="closed" value="true" />
+      <created>1739490544919</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1739490544919</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ya funciona equipos y jugador" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ya funciona equipos y jugador" />
+    <MESSAGE value="Mejorada la validacion de si se puede crear el jugador, añadido nickname, fechaNac y sueldo." />
+    <MESSAGE value="Añadida la validacion de maximo 6 jugadores por equipo." />
+    <MESSAGE value="Ver todos los equipos y jugadores arreglado, modificar equipos arreglado.&#10;Mejorados los toString() de jugadores y equipos.&#10;Agregado el jugador al equipo una vez creado, siempre y cuando no sea nulo.&#10;Si la fecha de fundacion del equipo era previa a la del juego creaba el equipo con esa fecha, corregido.&#10;Creado todo lo de juego y verificado(¿Como hacemos el resto?)" />
+    <MESSAGE value="Competicion completo creado &#10;No pude hacer nada mas porque no funciona nada en jornadaController" />
+    <option name="LAST_COMMIT_MESSAGE" value="Competicion completo creado &#10;No pude hacer nada mas porque no funciona nada en jornadaController" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ModeloController/EnfrentamientoController.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

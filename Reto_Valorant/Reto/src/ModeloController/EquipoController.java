@@ -3,26 +3,38 @@
 package ModeloController;
 
 import Modelo.Equipo;
+import Modelo.Juego;
+import Modelo.Jugador;
 import ModeloDAO.EquipoDAO;
+import ModeloDAO.JuegoDAO;
+
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 
-public class EquipoController {
+public class EquipoController{
 
-    public static EquipoDAO eDAO;
-    private static final LocalDate FECHAFUNDACION = LocalDate.of(2020, 6, 2);
+    private static EquipoDAO eDAO;
+    private static JuegoDAO jDAO;
+    private static LocalDate FECHAFUNDACION;
     //fecha fundacion hay que meterla en Juego
 
     public EquipoController() {
         eDAO = new EquipoDAO();
+        jDAO = new JuegoDAO();
     }
 
+    public void definirFechaFundacion(Juego j) {
+        FECHAFUNDACION = j.getFechaSalida();
+    }
     public void validarDatosEquipo() {
         Equipo equ = new Equipo();
             equ.setNombre(this.validarDato());
@@ -48,9 +60,9 @@ public class EquipoController {
                     JOptionPane.showMessageDialog(null, var + " tiene un patron inválido");
                 }
             } catch (NumberFormatException e) {
-                System.out.println("No se acepta ese formato para el nombre del equipo");
+                System.out.println("El nombre del equipo NO debe ser menor que 3 o mayor que 15");
             } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(null, "Nombre" + " no puede ser nulo");
+                JOptionPane.showMessageDialog(null, "No se admite valor nulo");
             }
         } while(!isFinished);
 
@@ -79,10 +91,10 @@ public class EquipoController {
                 } else {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
                     fechaPars = LocalDate.parse(fechaNOpars,formatter);
-                    if (fechaPars.isBefore(FECHAFUNDACION)) {
-                        JOptionPane.showMessageDialog(null, "La fecha de fundacion no puede ser anterior al año de creacion del juego");
-                    }
-                    validFecha = true;
+                    if (fechaPars.isBefore(FECHAFUNDACION) || fechaPars.isAfter(LocalDate.now())) {
+                        JOptionPane.showMessageDialog(null, "La fecha de fundacion no puede ser anterior al año de creacion del juego ni posterior a hoy");
+                    }else
+                        validFecha = true;
                 }
             } catch (NumberFormatException | DateTimeParseException e) {
                 System.out.println(fechaNOpars + " error al parsear la fecha : " +e.getMessage());
@@ -93,5 +105,153 @@ public class EquipoController {
 
         return fechaPars;
     }
+    public void modificarEquipo(){
+        Equipo eq = new Equipo();
+        ArrayList<Equipo> equipos = eDAO.obtenerTodosLosEquipos();
+        boolean continuar = false;
+        do {
+            try {
+                String opc= (String) JOptionPane.showInputDialog(null,
+                        "Que equipo?",
+                        "Opciones",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        equipos.stream().map(Equipo::getNombre).toArray(String[]::new),
+                        equipos.getFirst().getNombre()
+                );
+                if (opc==null || opc.isEmpty()) {
+                    continuar = false;
+                }else {
+                    eq = eDAO.obtenerTodosLosEquipos().stream().filter(equipo -> equipo.getNombre().equals(opc)).findFirst().orElse(null);
+                    //con solo el nombre obtiene todos los datos de Equipo eq
+                    continuar = true;
+                }
+            }catch (NullPointerException e){
+                continuar = false;
+            }
+        }while (JOptionPane.showConfirmDialog(null,"Quiere continuar modificando equipos?") == 1);
+        //sale de repetitiva
+        if (continuar)
+            opcionesModificar(eq);
+    }
+    private void opcionesModificar(Equipo eq){
+        String[] opc = {"Nombre","Fecha de fundacion","Jugadores"};
+        try {
+            String opcion = (String) JOptionPane.showInputDialog(null,
+                    "Que quieres modificar?",
+                    "Opciones",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    opc,
+                    opc[0]
+            );
+            if (opcion.isBlank()){
+                JOptionPane.showMessageDialog(null,"No se permiten opciones nulas");
+            }else {
+                switch (opcion){
+                    case "Nombre" -> eq.setNombre(this.validarDato());
+                    case "Fecha de fundacion" -> eq.setFechaFundacion(this.validarFechaFundacion());
+                    //case "Jugadores" -> e.setListaJugadores();
+                    //No seria mejor poner esta opcion solo en el jugador?
+                    default -> JOptionPane.showMessageDialog(null,"No se puede modificar eso en el equipo");
+                }
+            }
+        }catch (NullPointerException e){
+            System.out.println("No se aceptan valores nulos");
+        }
+    }
+    public void eliminarEquipo(){
+        Equipo eq = new Equipo();
+        ArrayList<Equipo> equipos = eDAO.obtenerTodosLosEquipos();
+        boolean continuar = false;
+        do {
+            try {
+                String opc= (String) JOptionPane.showInputDialog(null,
+                        "Que equipo quiere eliminar?",
+                        "Opciones",
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        equipos.stream().map(Equipo::getNombre).toArray(String[]::new),
+                        equipos.getFirst().getNombre()
+                );
+                if (opc==null || opc.isEmpty()) {
+                    continuar = false;
+                }else {
+                    eq = eDAO.obtenerTodosLosEquipos().stream().filter(equipo -> equipo.getNombre().equals(opc)).findFirst().orElse(null);
+                    //con solo el nombre obtiene todos los datos de Equipo eq
+                    continuar = true;
+                }
+            }catch (NullPointerException e){
+                continuar = false;
+            }
+        }while (JOptionPane.showConfirmDialog(null,"Quiere continuar eliminando equipos?") == 0);
+        //sale de repetitiva
+        if (continuar)
+            eDAO.eliminarEquipo(Objects.requireNonNull(eq).getCodEquipo());
+    }
+    public void verTodosEquipos(){
+        try {
+            ArrayList<Equipo> equipos
+                    = eDAO.obtenerTodosLosEquipos();
+            for (Equipo j : equipos){
+                Object[] options = { "OK", "CANCEL"};
+                JOptionPane.showOptionDialog(null, j.toString(), "Continuar",
+                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                        null, options, options[0]);
+                //Arreglado
+            }
+        }catch (NullPointerException e){
+            System.out.println("No hay jugadores para enseñar");
+        }catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("ERROR: " + e.getMessage());
+        }
+    }
+    public void verPorNombre(){
+        String[] nombres = eDAO.obtenerTodosLosEquipos().stream().map(Equipo::getNombre).toArray(String[]::new);
+        do {
+            String equipoElegido = (String) JOptionPane.showInputDialog(null,
+                    "Elija el nombre del equipo que quiere ver",
+                    "Opciones",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    nombres,
+                    nombres[0]
+            );
+            if (equipoElegido == null || equipoElegido.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null,"El nombre no puede ser nulo");
+            }else {
 
+                Equipo e = eDAO.obtenerTodosLosEquipos().stream().filter(equipo -> equipo.getNombre().equals(equipoElegido)).findFirst().orElse(null);
+
+                JOptionPane.showMessageDialog(null, Objects.requireNonNull(e).toString());
+            }
+        }while (JOptionPane.showConfirmDialog(null,"quiere continuar viendo equipos?") == 0);
+    }
+    public void verJugadores() {
+        String[] nombres = eDAO.obtenerTodosLosEquipos().stream().map(Equipo::getNombre).toArray(String[]::new);
+        do {
+            String equipoElegido = (String) JOptionPane.showInputDialog(null,
+                    "Elija el nombre del equipo que quiere ver sus jugadores",
+                    "Opciones",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    nombres,
+                    nombres[0]
+            );
+            if (equipoElegido == null || equipoElegido.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null,"El nombre no puede ser nulo");
+            }else {
+
+                Equipo e = eDAO.obtenerTodosLosEquipos().stream().filter(equipo -> equipo.getNombre().equals(equipoElegido)).findFirst().orElse(null);
+
+                ArrayList<Jugador> jugadores = Objects.requireNonNull(e).getListaJugadores();
+                for (Jugador j : jugadores) {
+                    Object[] options = { "OK", "CANCEL"};
+                    JOptionPane.showOptionDialog(null, j.toString(), "Continuar",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,
+                            null, options, options[0]);
+                }
+            }
+        }while (JOptionPane.showConfirmDialog(null,"quiere continuar viendo equipos?") == 0);
+    }
 }

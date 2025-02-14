@@ -12,15 +12,15 @@ public class Jugador {
     private int sueldo;
     private String rol;
     private String nickname;
-    private Optional<Equipo> equipo;
+    private Equipo equipo;
 
-    public Jugador(int codJugador, String nombre, String apellido, String nacionalidad, LocalDate fechaNacimiento, int sueldo, String rol, String nickname, Optional<Equipo> equipo) {
+    public Jugador(int codJugador, String nombre, String apellido, String nacionalidad, LocalDate fechaNacimiento, int sueldo, String rol, String nickname, Equipo equipo) {
         this.codJugador = codJugador;
         this.nombre = nombre;
         this.apellido = apellido;
         this.nacionalidad = nacionalidad;
         this.fechaNacimiento = fechaNacimiento;
-        sueldo = sueldo;
+        this.sueldo = sueldo;
         this.rol = rol;
         this.nickname = nickname;
         this.equipo = equipo;
@@ -32,7 +32,7 @@ public class Jugador {
         this.apellido = apellido;
         this.nacionalidad = nacionalidad;
         this.fechaNacimiento = fechaNacimiento;
-        sueldo = sueldo;
+        this.sueldo = sueldo;
         this.rol = rol;
         this.nickname = nickname;
     }
@@ -40,11 +40,11 @@ public class Jugador {
     public Jugador() {
     }
 
-    public Optional<Equipo> getEquipo() {
+    public Equipo getEquipo() {
         return equipo;
     }
 
-    public void setEquipo(Optional<Equipo> equipo) {
+    public void setEquipo(Equipo equipo) {
         this.equipo = equipo;
     }
 
@@ -92,7 +92,7 @@ public class Jugador {
         return sueldo;
     }
 
-    public void setSueldo(int sueldo) {
+    public void setSueldo(double sueldo) {
         sueldo = sueldo;
     }
 
@@ -110,5 +110,16 @@ public class Jugador {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    @Override
+    public String toString(){
+    return  "Nombre: " + getNombre()+"\n" +
+            "Apellido: " + getApellido()+"\n" +
+            "Fecha de nacimiento: " + getFechaNacimiento()+"\n" +
+            "Nickname: " + getNickname()+"\n" +
+            "Nacionalidad: " + getNacionalidad()+"\n" +
+            "Sueldo: " + getSueldo() + "\n" +
+            "Equipo: \n" + getEquipo().toString() + "\n";
     }
 }

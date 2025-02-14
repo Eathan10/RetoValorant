@@ -19,17 +19,30 @@ public class EnfrentamientoController {
     ArrayList<Enfrentamiento> enfrentamientos;
     ArrayList<Enfrentamiento> enfrentamientosMitad1;
     ArrayList<Jornada> jornadas;
-    List<Equipo> equipos;
+    ArrayList<Equipo> equipos;
 
     public void crearEnfrentamientos() {
+        boolean yes = true;
         declararVariables();
-        primeraMitad();
-        segundaMitad();
-        decirEnfrentamientos();
+        do{
+            try {
+                primeraMitad();
+                segundaMitad();
+                decirEnfrentamientos();
+                yes = false;
+            } catch (IllegalArgumentException e) {
+                System.out.println("No se han encontrado equipos. " + e.getMessage());
+                yes = true;
+            }
+        }while(yes);
     }
     private void declararVariables(){
+        enfrentamientoDAO = new EnfrentamientoDAO();
+        jornadaDAO = new JornadaDAO();
+        equipoDAO = new EquipoDAO();
         enfrentamientos = enfrentamientoDAO.getEnfrentamientos();
         enfrentamientosMitad1 = new ArrayList<>();
+        equipos = new ArrayList<>();
         jornadas = jornadaDAO.getJornadas();
     }
     private void primeraMitad(){
@@ -41,7 +54,6 @@ public class EnfrentamientoController {
     private void segundaMitad(){
         Random rand = new Random();
         for (int p = jornadas.size()/2; p < jornadas.size(); p++) {
-            for (int i = 0; i < 2 ; i++) {
                 Enfrentamiento enfrentamiento = new Enfrentamiento();
                 enfrentamiento.setHora(elegirHora());
                 enfrentamiento.setJornada(jornadas.get(p));
@@ -50,7 +62,6 @@ public class EnfrentamientoController {
                 enfrentamiento.setEquipo2(enfrentamientosMitad1.get(enfre).getEquipo1());
                 enfrentamientosMitad1.remove(enfre);
                 enfrentamientoDAO.anadirEnfrentamientos(enfrentamiento);
-            }
         }
     }
     private void decirEnfrentamientos(){
@@ -69,10 +80,12 @@ public class EnfrentamientoController {
             enfrentamiento.setHora(elegirHora());
             enfrentamiento.setEquipo1(elegirEquipo(equipos));
             equipos.remove(enfrentamiento.getEquipo1());
+            equipoDAO.crearEquipo(enfrentamiento.getEquipo1());
 
             noSeHanEnfrentado(enfrentamiento);
 
             equipos.remove(enfrentamiento.getEquipo2());
+            equipoDAO.crearEquipo(enfrentamiento.getEquipo2());
             enfrentamiento.setJornada(jornadas.get(p));
             enfrentamientoDAO.anadirEnfrentamientos(enfrentamiento);
             enfrentamientosMitad1.add(enfrentamiento);

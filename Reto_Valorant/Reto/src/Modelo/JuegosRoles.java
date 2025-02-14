@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 public class JuegosRoles {
 
-    private ArrayList<Juegos> listaJuegos;
+    private ArrayList<Juego> listaJuegos;
     private ArrayList<Rol> listaRoles;;
 
     public JuegosRoles() {
     }
 
-    public JuegosRoles(ArrayList<Juegos> listaJuegos, ArrayList<Rol> listaRoles) {
+    public JuegosRoles(ArrayList<Juego> listaJuegos, ArrayList<Rol> listaRoles) {
         this.listaJuegos = listaJuegos;
         this.listaRoles = listaRoles;
     }
 
-    public ArrayList<Juegos> getListaJuegos() {
+    public ArrayList<Juego> getListaJuegos() {
         return listaJuegos;
     }
 
-    public void setListaJuegos(ArrayList<Juegos> listaJuegos) {
+    public void setListaJuegos(ArrayList<Juego> listaJuegos) {
         this.listaJuegos = listaJuegos;
     }
 

@@ -1,7 +1,9 @@
 package ModeloController;
 
+import Modelo.Competicion;
 import Modelo.Equipo;
 import Modelo.Jornada;
+import ModeloDAO.CompeticionDAO;
 import ModeloDAO.EquipoDAO;
 import ModeloDAO.JornadaDAO;
 
@@ -9,35 +11,41 @@ import javax.swing.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class JornadaController {
     private static JornadaDAO jornadaDAO;
+    private static CompeticionDAO competicionDAO;
+    private static CompeticionController competicionController;
     private static EquipoDAO equipoDAO;
     private static ArrayList<Jornada> jornadas;
+    private static ArrayList<Competicion> competiciones;
     private static EnfrentamientoController enfrentamientoController;
     private static ArrayList<Equipo> equipos;
 
     private static final int[] meses31 = {1,3,5,7,8,10,12};
-    private void declararVariables(){
+
+    public JornadaController() {
         jornadaDAO = new JornadaDAO();
+        competicionDAO = new CompeticionDAO();
+        competicionController = new CompeticionController();
         equipoDAO = new EquipoDAO();
         enfrentamientoController = new EnfrentamientoController();
-        jornadas = jornadaDAO.getJornadas();
+        competiciones = competicionDAO.obtenerTodasCompeticiones();
+        jornadas = jornadaDAO.getJornadas(); // Asegúrate de inicializar aquí
         equipos = equipoDAO.obtenerTodosLosEquipos();
     }
+
     public boolean validarCreacionJornada(){
-        this.declararVariables();
         boolean resultado = true;
         try {
             if (equipos.size() % 2 == 0 && equiposMas2Jugadores()) {
-                declararVariables();
                 crearJornada();
+                competicionController.actualizarCompeticion(jornadas.getLast().getCompeticion());
                 resultado = false;
             } else {
                 System.out.println("La cantidad de equipos no es par");
-                resultado = true;
             }
         }catch (NullPointerException e){
             System.out.println("No existe ningun equipo.");
@@ -59,20 +67,17 @@ public class JornadaController {
     private void crearJornada(){
         for (int i = 0; i < equipos.size(); i++){
             Jornada jornada = new Jornada();
-            jornada.setNumJornada(elegirNumJornada());
-            jornada.setFechaInicio(elegirFecha());
-            enfrentamientoController.crearEnfrentamientos();
+                jornada.setNumJornada(elegirNumJornada());
+                jornada.setFechaInicio(elegirFecha());
+                jornada.setCompeticion(competicionDAO.obtenerTodasCompeticiones().getLast());
             jornadaDAO.anadirJornada(jornada);
-        }
-        for (Jornada jornada : jornadas){
-            System.out.println(jornada.getNumJornada() + " " + jornada.getFechaInicio());
         }
     }
     private int elegirNumJornada(){
         int numJornada;
         try {
             numJornada = jornadas.getLast().getNumJornada()+1;
-        }catch (NullPointerException e){
+        }catch (NullPointerException | NoSuchElementException e){
             numJornada = 1;
         }
         return numJornada;
@@ -86,7 +91,7 @@ public class JornadaController {
             mes = fecha.getMonthValue();
             dia = fecha.getDayOfMonth();
             year = fecha.getYear();
-        }catch (NullPointerException e){
+        }catch (NullPointerException | NoSuchElementException e){
             mes = elegirMes();
             dia = elegirDiaInicial(mes);
             year = 2025;

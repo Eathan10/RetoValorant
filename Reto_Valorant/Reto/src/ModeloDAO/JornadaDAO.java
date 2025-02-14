@@ -1,18 +1,20 @@
 package ModeloDAO;
 
+
 import Modelo.Jornada;
 
 import java.util.ArrayList;
 
 public class JornadaDAO {
-    private ArrayList<Jornada> jornadas;
+
+    private static final ArrayList<Jornada> listaJornada = new ArrayList<>();
+
+    public JornadaDAO() {}
+
     public void anadirJornada(Jornada j) {
-        if (jornadas == null) {
-            jornadas = new ArrayList<>();
-        }
-            jornadas.add(j);
+        listaJornada.add(j);
     }
     public ArrayList<Jornada> getJornadas() {
-        return jornadas;
+        return listaJornada;
     }
 }
